@@ -234,18 +234,32 @@ Do not modify documentation unnecessarily.
 
 Use Conventional Commits whenever practical.
 
+Commit messages should follow this structure:
+
+```text
+type(scope): What changed
+
+A brief body that explains why the change was made and where it was applied.
+```
+
+- `type` should use one of: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `chore`
+- `scope` should describe the area or file(s) affected
+- `What` should be specific about the change
+- The body should fully elaborate on the reason for the change and the implementation details where needed
+
 Examples:
 
 ```text
-feat:
-fix:
-docs:
-style:
-refactor:
-perf:
+feat(nav): add keyboard support to main navigation
+
+Enable keyboard users to navigate the main menu using arrow keys and Enter. This improves accessibility for users who rely on keyboard-only interaction.
 ```
 
-Commit messages should describe what changed, not every implementation detail.
+```text
+chore(ci): update workflow to run tests on pull requests
+
+Add coverage for automated tests on PR branches and ensure the pipeline runs before merge. This helps catch regressions earlier.
+```
 
 ---
 
