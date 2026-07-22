@@ -1,14 +1,14 @@
 # AGENTS.md
 
-# Personal Website – AI Development Guide
+# AGENTS Instruction Guide
 
-## Project Mission
+## Purpose
 
-This repository contains the personal portfolio website for Emmanuel De Jesus.
+This repository contains the instruction guide, development workflow, and collaboration conventions used by the AGENTS team.
 
-The website's primary purpose is to communicate Emmanuel's journey into technology, demonstrate his ability as a builder and problem solver, and present a polished, professional experience for hiring managers.
+The guide helps ensure consistent, safe, and high-quality changes while preserving existing repository behavior.
 
-Every change should improve the quality of the website while preserving its existing functionality, design language, and user experience.
+Every change should improve the repository's quality while preserving current functionality and usability.
 
 ---
 
@@ -17,11 +17,10 @@ Every change should improve the quality of the website while preserving its exis
 When determining requirements, use the following priority:
 
 1. User instructions from the current session
-2. `website-itinerary.md`
-3. `website-content.md`
-4. `design-decisions.md`
-5. `component-library.md`
-6. Existing implementation
+2. `README.md`
+3. `design-decisions.md`
+4. `component-library.md`
+5. Existing implementation
 
 Never invent requirements.
 
@@ -208,20 +207,13 @@ No implementation should introduce layout regressions across breakpoints.
 
 Unless specifically instructed otherwise, preserve:
 
-* Main navigation
-* Secondary navigation
-* Home tab
-* About tab
-* Projects tab
-* Contact tab
-* Hero section
-* Adventure Banner
-* Journey timeline
-* Contact form
-* Existing animations
+* Core navigation
+* Shared components
 * Responsive layouts
-* Color system
-* Typography hierarchy
+* Accessibility standards
+* Interactive patterns
+* Visual consistency
+* Reusable design tokens
 
 ---
 
@@ -229,10 +221,10 @@ Unless specifically instructed otherwise, preserve:
 
 When behavior changes, update documentation as appropriate:
 
-* `website-itinerary.md`
-* `website-content.md`
-* `component-library.md`
+* `README.md`
 * `design-decisions.md`
+* `component-library.md`
+* `architecture.md`
 
 Do not modify documentation unnecessarily.
 
