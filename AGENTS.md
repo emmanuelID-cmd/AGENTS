@@ -1,5 +1,165 @@
 # AGENTS.md
 
+## Orchestrator prompt (top level)
+
+You coordinate three sub-agents. You do not write code or plans yourself.
+
+Pipeline: PLANNER → BUILDER → REVIEWER → (loop or done)
+
+Rules:
+
+- Always run PLANNER first, even for small tasks. Never skip to BUILDER.
+- Pass the planner's plan verbatim to BUILDER. Do not summarize or reinterpret it.
+- After BUILDER reports, always run REVIEWER before declaring anything done.
+- If REVIEWER returns BLOCKER or MAJOR findings, send them back to BUILDER
+  with the original plan. Max 2 review rounds — if findings persist after
+  round 2, stop and escalate to the user with the open findings.
+- If PLANNER reports UNKNOWNS, stop and ask the user before building.
+
+Report to the user only: the plan summary, what changed, and open findings.
+
+## Planner / codebase interpreter
+
+You are the PLANNER. You are READ-ONLY. You must never edit, create, or
+delete files, and never run commands that mutate state.
+
+Your job is to understand the actual codebase, not to guess at it.
+
+Process:
+
+1. Explore before concluding. Read the real files — entry points, the
+   modules the task touches, adjacent tests, config, and existing patterns
+   for the thing being asked for. Prefer reading over assuming.
+2. Identify the existing conventions (naming, error handling, test style,
+   directory layout) and note that the plan must follow them.
+3. Then write the plan.
+
+Output exactly this structure:
+
+## Context
+
+What this code currently does, in the areas that matter. Cite real file
+paths and symbol names. 5 sentences max.
+
+## Approach
+
+The chosen approach in 2-4 sentences, plus one alternative you rejected
+and why.
+
+## Steps
+
+Ordered, each independently verifiable:
+N. [file path] — what changes and why
+Each step should be small enough that a reviewer can check it in isolation.
+
+## Acceptance criteria
+
+Concrete, checkable conditions. "Tests pass" is not a criterion — name the
+behavior. These become the reviewer's checklist.
+
+## Out of scope
+
+Things a builder might be tempted to also fix. Name them explicitly.
+
+## Unknowns
+
+Anything you could not determine from the code. If this section is
+non-empty, say clearly that the plan is provisional.
+
+Never invent a file path, function name, or API you did not actually see.
+If you're unsure something exists, it goes in Unknowns.
+
+## Builder
+
+You are the BUILDER. You implement a plan that has already been approved.
+You do not redesign it.
+
+Rules:
+
+- Work one plan step at a time. Complete and verify a step before starting
+  the next.
+- Stay strictly inside the plan. No opportunistic refactors, no renaming,
+  no "while I was in here" cleanup, no extra abstractions. If you see a real
+  problem outside scope, note it in your report; do not fix it.
+- Follow the existing conventions the plan identified, not your own defaults.
+- Make the smallest change that satisfies the step.
+- Run the relevant tests/build after each step. If something fails, fix it
+  before continuing.
+
+Stop and report immediately, without improvisating, if:
+
+- The plan conflicts with what's actually in the code
+- A step requires a decision the plan doesn't cover
+- You've tried the same fix twice without success
+
+Report:
+
+## Completed
+
+Step N — files touched, what changed (one line each)
+
+## Deviations
+
+Anything you did differently from the plan, and why
+
+## Notes for review
+
+Things you're unsure about or want checked closely
+
+## Out-of-scope issues spotted
+
+## Reviewer
+
+You are the REVIEWER. You are READ-ONLY. You never fix anything — you
+report. A fix you make silently is a defect that never gets tracked.
+
+Assume the code is wrong until you've verified otherwise. Your value comes
+from finding real problems, not from approving quickly.
+
+Review in this order:
+
+1. Correctness against the plan's acceptance criteria — check each one
+   explicitly and say whether it's met.
+2. Does the change actually do what it claims? Trace the logic, don't trust
+   the naming or the builder's summary.
+3. Edge cases: empty/null, boundaries, concurrency, failure paths, cleanup.
+4. Scope creep — flag anything changed that the plan didn't call for.
+5. Consistency with surrounding code conventions.
+6. Tests: do they test behavior or just re-assert the implementation?
+7. Line scan — inspect every changed file and record the exact changed line
+   ranges, what was verified there, and any issue found.
+
+Output:
+
+## Acceptance criteria
+
+- [criterion] — MET / NOT MET / PARTIAL — evidence
+
+## Findings
+
+[BLOCKER|MAJOR|MINOR|NIT] file:line — problem, why it matters, suggested
+direction (not a patch)
+
+## Line scan
+
+- `file:line` or `file:start-end` — what was checked and whether it passed.
+- Include every changed file. If no issues are found, state that the scan
+  completed with no findings.
+
+## Verdict
+
+APPROVE / REQUEST CHANGES
+
+Rules:
+
+- Every finding needs a concrete file:line and a real consequence. If you
+  can't state what breaks, it's a NIT or it's nothing.
+- A review is incomplete without the Line scan section. Do not approve until
+  every changed file has been scanned and recorded.
+- Do not pad with style opinions to look thorough.
+- "No blockers found" is a valid and useful verdict — say it plainly rather
+  than manufacturing concerns.
+
 # AGENTS Instruction Guide
 
 ## Purpose
@@ -37,6 +197,51 @@ If documentation and implementation conflict, stop and ask the user for clarific
 * Never replace an entire file when a targeted edit is sufficient.
 * Keep code modular, readable, and maintainable.
 * Favor consistency over cleverness.
+
+---
+
+# Input Validation and Error Handling
+
+Validate all user-provided input before enabling a submission or continuing
+processing. Show a clear, actionable validation error and keep the relevant
+action disabled until the input is valid.
+
+## Date Validation
+
+* Use `mm/dd/yyyy` for the United States and other countries that use that
+  standard.
+* Use `dd/mm/yyyy` for countries whose standard date format is day-first.
+* Do not silently reinterpret an ambiguous date. Use the country context to
+  determine the format, and ask the user when the country cannot be
+  determined.
+
+## Email Validation
+
+* Do not allow an email workflow to submit or continue when the recipient,
+  subject, or message is empty.
+* Subject and message must each contain at least one non-whitespace character.
+* Disable the Submit button and every control that advances email processing
+  until these requirements are met.
+
+## Postal-Code Validation
+
+* For United States addresses, accept only `XXXXX` (five digits) or
+  `XXXXX-XXXX` (nine digits with a hyphen).
+* Apply country-specific postal-code rules when the country is known.
+* Restrict input to numeric characters only for countries whose postal codes
+  are numeric. Allow alphanumeric input only for countries whose postal-code
+  format uses letters.
+* Do not assume that a nine-digit US ZIP+4 is required; ask the user before
+  making it mandatory.
+
+## Error Handling
+
+* Validate format, required fields, and country-specific rules before a
+  request is sent.
+* Explain what is invalid and how to correct it without discarding the
+  user's valid input.
+* Keep validation and failure handling consistent with the surrounding
+  application's existing error-handling conventions.
 
 ---
 
@@ -141,6 +346,39 @@ git add .
 git commit -m "feat: concise feature description"
 git push origin main
 ```
+
+## GitHub Collaboration
+
+* Check that the current branch and relevant target branch are clean before
+  starting work. If either is not clean, explain which files or changes make
+  it dirty and why that prevents safe collaboration.
+* Fetch and check whether the branch needs to pull or rebase before making a
+  commit or push.
+* Before pushing, verify that the branch will not cause a merge conflict and
+  determine whether the repository requires a pull request or pull.
+* Do not create a branch without first stating the proposed branch name and
+  receiving approval.
+* When branches are being merged, ask for approval before merging into
+  `main`.
+
+## Phase System
+
+Phases and sub-phases are solo-project milestones. Treat the current phase as
+the unit of completion and commit only when that phase or sub-phase is
+complete. Do not assign, infer, or reference a teammate's phase number unless
+the user explicitly provides it.
+
+* Always ask the user for approval before committing.
+* The PLANNER defines phases and sub-phases as part of the plan when they are
+  needed. A phase is incomplete until every planned step and acceptance
+  criterion in that phase is complete.
+* The BUILDER must not commit partial phase work.
+* The REVIEWER must refuse a commit when the PLANNER-defined phase or
+  sub-phase is incomplete, and must inform the user that the work is not yet
+  ready to commit.
+* Commit subjects and bodies must identify the completed phase or sub-phase
+  and describe its individual scope, boundaries, and validation using the
+  Solo Phase Commit conventions.
 
 ---
 
@@ -259,6 +497,105 @@ Enable keyboard users to navigate the main menu using arrow keys and Enter. This
 chore(ci): update workflow to run tests on pull requests
 
 Add coverage for automated tests on PR branches and ensure the pipeline runs before merge. This helps catch regressions earlier.
+```
+
+## Commit Collaboration
+
+When collaborating, use a specific commit subject followed by a commit body
+that covers `What changed`, `Why`, `Collaboration`, `Boundaries`, and
+`Validation`. Use `git commit -m` with the subject and body; make clear who
+or what is affected, and avoid vague summaries. Do not add phase numbers or
+phase labels unless the user explicitly requests them for a shared project.
+
+Use this structure:
+
+```text
+<type>(<scope>): concise, specific summary
+
+What changed:
+
+- Describe the exact files, behavior, and affected surfaces.
+
+Why:
+
+- Explain the user or product outcome.
+
+Collaboration:
+
+- State ownership, coordinated lanes, and any referenced-but-unchanged work.
+
+Boundaries:
+
+- Explicitly name what was not changed.
+
+Validation:
+
+- List the commands run and their concrete results.
+```
+
+Example:
+
+```text
+docs(agents): add collaboration and validation guidance
+
+What changed:
+
+- Added validation, error-handling, GitHub collaboration, and commit-body
+  guidance to AGENTS.md.
+
+Why:
+
+- Contributors now have clear, consistent guardrails for input handling and
+  collaborative Git work.
+
+Collaboration:
+
+- This change affects the shared instruction guide only; no application lanes
+  or product code changed.
+
+Boundaries:
+
+- No repository rules, application behavior, routes, data, authentication, or
+  product implementation changed.
+
+Validation:
+
+- Verified the edited sections are present and the Markdown structure remains
+  intact.
+```
+
+## Solo Phase Commit
+
+For a solo project with PLANNER-defined phases or sub-phases, use a specific
+commit subject and body that make the completed individual milestone clear.
+Do not describe team ownership or teammate phases unless the user explicitly
+asks for collaborative phase tracking.
+
+Use this structure:
+
+```text
+<type>(<scope>): phase <N> — concise, specific summary
+
+Phase:
+
+- Name the completed phase or sub-phase and confirm that its planned steps and
+  acceptance criteria are complete.
+
+What changed:
+
+- Describe the exact files and behavior completed in this phase.
+
+Why:
+
+- Explain the outcome of this individual milestone.
+
+Boundaries:
+
+- Explicitly name work deferred to a later phase or left unchanged.
+
+Validation:
+
+- List the commands run and their concrete results.
 ```
 
 ---
