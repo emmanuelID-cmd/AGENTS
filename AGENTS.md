@@ -160,6 +160,8 @@ Rules:
 - "No blockers found" is a valid and useful verdict — say it plainly rather
   than manufacturing concerns.
 
+---
+
 # AGENTS Instruction Guide
 
 ## Purpose
@@ -197,6 +199,22 @@ If documentation and implementation conflict, stop and ask the user for clarific
 * Never replace an entire file when a targeted edit is sufficient.
 * Keep code modular, readable, and maintainable.
 * Favor consistency over cleverness.
+
+---
+
+# Files and Folder Organization
+
+Place files and folders in the directory that best matches their feature,
+responsibility, and existing repository conventions. Keep the project easy to
+decipher by using clear, purposeful names.
+
+* Do not overpile unrelated files into a single directory.
+* Group files by the feature or responsibility they serve, such as routes,
+  API handlers, shared components, authentication, messaging, or profiles.
+* Reuse the repository's existing directory layout; do not create a new
+  organizational pattern without a clear need.
+* Keep related files close together and avoid scattering one feature across
+  unrelated folders.
 
 ---
 
