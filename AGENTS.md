@@ -233,6 +233,15 @@ action disabled until the input is valid.
   determine the format, and ask the user when the country cannot be
   determined.
 
+## Date Error Handling
+
+* Do not allow a general date, start date, or end date to be after the
+  current date.
+* When both a start date and end date are present, do not allow the end date
+  to be before the start date or the start date to be after the end date.
+* A date-only Follow-up or Schedule field is the exception: it may allow a
+  date after the current date.
+
 ## Email Validation
 
 * Do not allow an email workflow to submit or continue when the recipient,
@@ -285,11 +294,31 @@ and integration steps are clear.
 * Document the required environment-variable names and where they are used,
   without recording their values.
 
+## API State Handling
+
+* Show the application's standard animated loading icon while an API request
+  is loading.
+* When an API request fails, show the Temporarily Unavailable state.
+* When an API request succeeds, show the Live state with the current API
+  response.
+
+## API Internet Access
+
+* When internet access is unavailable, show a clear No Internet Access state.
+* Tell the user to try again when internet access is restored or to turn on
+  internet access before retrying the API request.
+
 ---
 
 # Required Development Workflow
 
 Every development task must follow this workflow.
+
+### Codex Command Runner Fallback
+
+First attempt safe, read-only Git checks with the normal Codex command runner. If it fails, Codex may request temporary elevated sandbox permission for narrowly scoped, read-only Git checks using clear wording such as: "Allow read-only Git checks outside the sandbox?"
+
+This is not Windows "Run as Administrator" and does not change the user’s Windows account permissions. It must not be used for writing, staging, committing, pushing, deleting, merging, or any other state-changing command.
 
 ## Phase 1 – Repository Verification
 
