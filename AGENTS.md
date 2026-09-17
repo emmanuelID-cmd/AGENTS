@@ -242,6 +242,18 @@ action disabled until the input is valid.
 * A date-only Follow-up or Schedule field is the exception: it may allow a
   date after the current date.
 
+## Time Editor and Error Handling
+
+* Validate date and time together as one date/time value. Do not compare a
+  time-of-day by itself to the current clock time.
+* Do not allow a general date/time, start date/time, or end date/time to be
+  after the current date/time.
+* When both a start date/time and end date/time are present, do not allow the
+  end date/time to be before the start date/time or the start date/time to be
+  after the end date/time.
+* A Follow-up or Schedule date/time field is the exception: it may allow a
+  date/time after the current date/time.
+
 ## Email Validation
 
 * Do not allow an email workflow to submit or continue when the recipient,
