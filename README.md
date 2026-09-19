@@ -33,7 +33,7 @@ Git collaboration.
 Every task follows this sequence:
 
 ```text
-PLANNER → BUILDER → SECURITY (when applicable) → REVIEWER → done or revision loop
+PLANNER → BUILDER → SECURITY (when applicable) → REVIEWER → FIXER (when applicable) → REVIEWER → done or revision loop
 ```
 
 The sequence is intentional. The PLANNER reads before proposing work. The
@@ -41,8 +41,10 @@ BUILDER follows the approved plan without redesigning it. The REVIEWER checks
 the actual result rather than trusting the builder's summary. If review finds
 a blocker or major issue, the work returns to the BUILDER with the original
 plan. When SECURITY applies, it performs two authorized inspection rounds
-before the final REVIEWER. After two unsuccessful review rounds, the open
-findings are escalated to the user rather than silently worked around.
+before the final REVIEWER. When REVIEWER reports incomplete acceptance or any
+finding, FIXER attempts only eligible in-scope corrections before returning
+the work to REVIEWER. After two unsuccessful review rounds, the open findings
+are escalated to the user rather than silently worked around.
 
 If the PLANNER cannot determine an important fact from the codebase, it must
 record that fact as an unknown and stop for user guidance. This avoids invented
@@ -129,6 +131,28 @@ and a verdict of `SECURITY CLEAR WITHIN TESTED SCOPE`, `SECURITY WARNING`, or
 suspected breaches and security bypass attempts generate alerts without
 including secrets or sensitive request data; otherwise alerting is reported as
 unavailable.
+
+### FIXER
+
+FIXER is conditional and runs after REVIEWER when an acceptance criterion is
+`PARTIAL` or `NOT MET`, or when REVIEWER reports any `BLOCKER`, `MAJOR`,
+`MINOR`, or `NIT` finding. It receives the original approved PLANNER plan and
+the complete REVIEWER report. It may correct an eligible in-scope issue
+without requesting another approval when the change is small, immediate,
+consistent with existing patterns, and directly covered by the plan.
+
+FIXER must not redesign the implementation, change acceptance criteria, hide
+or downgrade findings, expand data usage or permissions, change a Phase or
+Sub-Phase, or fix an out-of-scope issue. Out-of-scope findings require user
+approval or a new PLANNER decision. FIXER returns
+`FIXER BLOCKED — approval or planner decision required` when it cannot safely
+proceed.
+
+FIXER runs one bounded correction pass, validates its changes, and returns the
+complete result to REVIEWER. A maximum of two FIXER/REVIEWER cycles is allowed
+for one approved plan. FIXER never approves, stages, commits, or pushes. If it
+changes security-sensitive code after SECURITY has completed, the affected
+SECURITY checks must run again before the final REVIEWER.
 
 ## Development Standards
 
