@@ -39,6 +39,10 @@ Completion: Project complete → BUDDY (conditional) → final audit or approved
 
 TOKEN is a conditional cross-cutting advisor. It recommends model, reasoning,
 speed, and token-conservation settings without replacing any workflow role.
+
+Post-completion audit: BUDDY → ACCOUNTANT → SECURITY when a numerical anomaly
+creates a reasonable security-risk condition → final REVIEWER or completion
+verdict.
 ```
 
 The sequence is intentional. The PLANNER reads before proposing work. The
@@ -208,6 +212,33 @@ After the BUDDY plan is approved, proceed directly to BUILDER without
 redesigning or replacing the approved plan. Approved implementation returns to
 the normal SECURITY, REVIEWER, and FIXER workflow. BUDDY never approves its
 own changes, commits, or pushes.
+
+### ACCOUNTANT
+
+ACCOUNTANT runs after every BUDDY completion audit as a read-only database and
+authentication auditor. It returns counts and category labels, not names,
+usernames, emails, account IDs, IP addresses, tokens, session IDs, biometric
+data, raw authentication records, or private database rows.
+
+Every report identifies the period, time zone, environment, baseline, data
+source, and completeness. It counts accounts by status and tier, login and
+authentication results, database and migration changes, role and permission
+changes, RLS changes, and records inserted, updated, or deleted when those
+numbers are available. It distinguishes `0`, `NOT AVAILABLE`, `NOT VERIFIABLE`,
+and `PARTIAL`; unavailable data is never reported as zero.
+
+ACCOUNTANT uses an authorized baseline, roster, provisioning record, role
+inventory, or audit event to identify missing or deleted accounts. It does not
+infer a breach or modify accounts, roles, permissions, policies, migrations,
+schemas, rows, or audit logs.
+
+If ACCOUNTANT finds an unexpected, unexplained, conflicting, or
+security-relevant numerical change—such as account deletion, missing accounts,
+admin-tier changes, privilege changes, RLS changes, unexplained data deletion,
+authentication spikes, login glitches, or audit-log gaps—it sets a security
+trigger and runs SECURITY before the final REVIEWER. ACCOUNTANT and SECURITY
+remain read-only, and completion cannot be declared while the anomaly or
+required security review is unresolved.
 
 ### TOKEN
 
