@@ -36,6 +36,9 @@ Every task follows this sequence:
 Normal: PLANNER → BUILDER → SECURITY (when applicable) → REVIEWER → FIXER (when applicable) → REVIEWER
 
 Completion: Project complete → BUDDY (conditional) → final audit or approved after-final work
+
+TOKEN is a conditional cross-cutting advisor. It recommends model, reasoning,
+speed, and token-conservation settings without replacing any workflow role.
 ```
 
 The sequence is intentional. The PLANNER reads before proposing work. The
@@ -184,6 +187,31 @@ After the BUDDY plan is approved, proceed directly to BUILDER without
 redesigning or replacing the approved plan. Approved implementation returns to
 the normal SECURITY, REVIEWER, and FIXER workflow. BUDDY never approves its
 own changes, commits, or pushes.
+
+### TOKEN
+
+TOKEN activates only when model or reasoning guidance would materially help,
+such as for large, multi-agent, high-risk, or context-heavy work, or when the
+user requests a recommendation. It recommends settings based on the actual
+action and risk, using only models verified as available in the current
+environment. The user's explicit model choice always takes priority.
+
+TOKEN may recommend a model, reasoning level, speed, and scope without
+changing them. Automation requires explicit user approval for a defined scope,
+such as one action, one agent, one phase, the current project, or all approved
+actions in the task. If model switching is unavailable, TOKEN reports that
+manual selection is required.
+
+When no change is recommended, TOKEN enters `TOKEN OFF`. When the user approves
+a choice, TOKEN enters `TOKEN LOCKED` for that scope. It keeps the choice
+consistent across related actions and agents; it does not repeatedly ask for a
+change or bounce between models. TOKEN may reconsider only when the user asks,
+the scope changes, the model becomes unavailable, task risk materially
+increases, or the current model cannot complete the required work.
+
+TOKEN must not conserve tokens by skipping required planning, security checks,
+review, fixes, tests, line scans, approvals, or BUDDY safeguards. It must not
+claim that a model change was automated when it was not.
 
 ## Development Standards
 
