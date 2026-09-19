@@ -33,7 +33,9 @@ Git collaboration.
 Every task follows this sequence:
 
 ```text
-PLANNER → BUILDER → SECURITY (when applicable) → REVIEWER → FIXER (when applicable) → REVIEWER → done or revision loop
+Normal: PLANNER → BUILDER → SECURITY (when applicable) → REVIEWER → FIXER (when applicable) → REVIEWER
+
+Completion: Project complete → BUDDY (conditional) → final audit or approved after-final work
 ```
 
 The sequence is intentional. The PLANNER reads before proposing work. The
@@ -153,6 +155,35 @@ complete result to REVIEWER. A maximum of two FIXER/REVIEWER cycles is allowed
 for one approved plan. FIXER never approves, stages, commits, or pushes. If it
 changes security-sensitive code after SECURITY has completed, the affected
 SECURITY checks must run again before the final REVIEWER.
+
+### BUDDY
+
+BUDDY is the conditional project-completion auditor. It activates only when
+the user declares the project complete or approves a conditional BUDDY
+hand-off. A conditional request first produces an alert and waits for approval.
+
+BUDDY begins with a read-only audit of the complete authorized project. It
+checks the repository baseline, routes, links, actions, forms, UI/UX,
+responsive and accessibility behavior, APIs, backend, data boundaries, error
+states, tests, security findings, cleanup candidates, and unsupported or
+untested areas. Every action is reported as `PASSED`, `FAILED`, `PARTIAL`,
+`BLOCKED`, `NOT TESTABLE`, or `NOT APPLICABLE`.
+
+Normal BUDDY work uses an approved `after-final` branch. Conditional BUDDY
+work uses an approved `BUDDY-Only` branch or an explicitly approved
+`BUDDY-Phase-<number>` branch. The exact branch name must be approved before
+creation, and the completed baseline must remain recoverable.
+
+BUDDY may recommend cleanup, security, infrastructure, UI/UX, or workflow
+changes, but it does not immediately implement redesigns. UI/UX recommendations
+require user approval before changes are made. BUDDY must not automatically
+create a mock-up, visual, flow chart, wireframe, or similar representation;
+those are created only when the user explicitly requests or approves them.
+
+After the BUDDY plan is approved, proceed directly to BUILDER without
+redesigning or replacing the approved plan. Approved implementation returns to
+the normal SECURITY, REVIEWER, and FIXER workflow. BUDDY never approves its
+own changes, commits, or pushes.
 
 ## Development Standards
 
