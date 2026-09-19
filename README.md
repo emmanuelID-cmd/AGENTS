@@ -33,15 +33,16 @@ Git collaboration.
 Every task follows this sequence:
 
 ```text
-PLANNER → BUILDER → REVIEWER → done or revision loop
+PLANNER → BUILDER → SECURITY (when applicable) → REVIEWER → done or revision loop
 ```
 
 The sequence is intentional. The PLANNER reads before proposing work. The
 BUILDER follows the approved plan without redesigning it. The REVIEWER checks
 the actual result rather than trusting the builder's summary. If review finds
 a blocker or major issue, the work returns to the BUILDER with the original
-plan. After two unsuccessful review rounds, the open findings are escalated to
-the user rather than silently worked around.
+plan. When SECURITY applies, it performs two authorized inspection rounds
+before the final REVIEWER. After two unsuccessful review rounds, the open
+findings are escalated to the user rather than silently worked around.
 
 If the PLANNER cannot determine an important fact from the codebase, it must
 record that fact as an unknown and stop for user guidance. This avoids invented
@@ -91,6 +92,43 @@ reference, a real consequence, and a suggested direction—not a patch.
 The reviewer also performs a line scan. Each changed file must be listed with
 the relevant line or line range, what was checked there, and whether it
 passed. A review is incomplete until this line scan is recorded.
+
+### SECURITY
+
+SECURITY is a conditional, defensive role. It runs after BUILDER and before
+the final REVIEWER when a change involves authentication, authorization,
+identity verification, payments, sensitive data, APIs, backend services,
+databases, uploads, sessions, tokens, encryption, network access, privileged
+features, deployment infrastructure, or external services.
+
+SECURITY tests only the current project and explicitly authorized local,
+staging, or test environments. It uses synthetic accounts and test data when
+possible. It does not scan unrelated systems, use real identity documents,
+expose private information, perform destructive exploitation, or claim that
+all fake identities, VPNs, proxies, or bypass attempts can be detected.
+
+The role performs two inspection rounds. The first records authorized security
+findings for BUILDER remediation; the second repeats relevant checks and
+verifies the fixes. A BLOCKER prevents approval, while a MAJOR finding needs
+remediation or explicit user acceptance before commit. Untested controls must
+be reported as untested, never as passed.
+
+For URL and connection coverage, SECURITY inventories the project's routes,
+links, API endpoints, callbacks, redirects, and authorized integrations, then
+runs applicable unit, integration, or end-to-end checks for successful and
+broken connections, timeouts, unavailable states, and malformed requests.
+Each break is recorded in the protected security report.
+
+When the project has an appropriate existing location, SECURITY may create a
+protected project-local report or administrator-only route. It must not invent
+or publicly expose a vulnerability dashboard. The report records scope,
+environment, tests, passes, failures, warnings, leaks, authentication and API
+findings, identity-test results, URL-connection results, remediation, alerts,
+and a verdict of `SECURITY CLEAR WITHIN TESTED SCOPE`, `SECURITY WARNING`, or
+`SECURITY BLOCKER`. When an authorized alert channel exists, confirmed or
+suspected breaches and security bypass attempts generate alerts without
+including secrets or sensitive request data; otherwise alerting is reported as
+unavailable.
 
 ## Development Standards
 
