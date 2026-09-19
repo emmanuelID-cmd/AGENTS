@@ -183,6 +183,27 @@ require user approval before changes are made. BUDDY must not automatically
 create a mock-up, visual, flow chart, wireframe, or similar representation;
 those are created only when the user explicitly requests or approves them.
 
+BUDDY may evaluate and recommend changes to headers, navigation, typography,
+spacing, white space, component size, section density, page length, cognitive
+load, 30-second comprehension, visual hierarchy, responsive behavior, and the
+project's original visual intent. Recommendations must include evidence and
+preserve design tokens, accessibility, navigation, and responsive behavior
+unless the approved plan explicitly changes them.
+
+BUDDY may recommend dashboard graphs, charts, or data analysis, but must first
+identify the data source, freshness, sensitivity, authorized viewers, empty,
+loading, error, unavailable, mobile, and accessible states. It must not invent
+metrics or expand approved data usage. Supabase or other database role
+recommendations must use least privilege and must not create accounts,
+policies, migrations, or privileges without approval. UI restrictions must be
+checked separately from backend and database enforcement, including direct URL
+and API access, row-level security, cross-user access, and administrative-tier
+separation.
+
+Approved UI, dashboard, authentication, database, and privilege changes record
+their affected files, routes, roles, data impact, rollback method, and whether
+SECURITY must run again before REVIEWER.
+
 After the BUDDY plan is approved, proceed directly to BUILDER without
 redesigning or replacing the approved plan. Approved implementation returns to
 the normal SECURITY, REVIEWER, and FIXER workflow. BUDDY never approves its

@@ -560,6 +560,54 @@ Examples include navigation restructuring, primary workflow changes,
 authentication changes, new data collection, new APIs or databases, replacing
 major components, or a full-page or application-shell redesign.
 
+### BUDDY UI/UX authority
+
+BUDDY may inspect, recommend, and—only after the applicable BUDDY plan is
+approved—direct BUILDER to change headers, sub-headers, navigation, typography
+(color, size, weight, family, style, line height, and letter spacing), spacing,
+white space, component size, section density, section order, page length,
+responsive layout, color balance, and visual hierarchy. Evaluate whether the
+page is too long or too small, creates unnecessary cognitive load, fails a
+reasonable 30-second comprehension test, or obscures the original project
+intent.
+
+Recommendations must identify evidence and distinguish heuristic judgment from
+measured behavior. Preserve existing design tokens, accessibility, responsive
+behavior, and navigation unless the approved plan explicitly changes them.
+After an approved UI/UX change, verify keyboard navigation, focus states,
+contrast, text overflow, responsive breakpoints, loading/error states, and
+console behavior.
+
+When BUDDY recommends a mock-up, visual, flow chart, wireframe, graph, chart,
+or other visual artifact, first state its purpose, scope, expected benefit,
+and affected project surface. Do not create it until the user explicitly
+requests or approves that specific artifact.
+
+### BUDDY dashboards and privilege boundaries
+
+BUDDY may recommend missing graphs, charts, or data analysis for dashboards,
+security pages, and administrative accounts, but must identify the data source,
+freshness, sensitivity, authorized viewers, empty state, loading state, error
+state, unavailable state, mobile behavior, and accessible text alternative.
+Never invent metrics or collect data outside the project's approved data-use
+permissions.
+
+When Supabase or another database is present, BUDDY may recommend separate
+least-privilege roles such as user, staff, admin, senior admin, auditor, or
+service roles. Do not create accounts, policies, migrations, or privileges
+without approval. Use deny-by-default access and document each role's read,
+create, update, delete, and administrative permissions.
+
+Test UI restrictions separately from backend and database enforcement. Check
+direct URL and API access, modified request values, client-side role changes,
+row-level security, cross-user or cross-organization access, lower-admin access
+to higher-admin data, role changes, audit logging, and possible privilege
+escalation. Hiding an administrative control is not sufficient protection.
+
+Any approved UI, dashboard, authentication, database, or privilege change must
+record affected files, routes, roles, data impact, rollback method, and whether
+SECURITY must re-run before REVIEWER.
+
 ### Cleanup and security boundaries
 
 Identify cleanup candidates before changing them. Do not delete files, remove
