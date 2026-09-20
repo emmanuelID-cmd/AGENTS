@@ -11,6 +11,12 @@ delete, overwrite, rotate, expose, or restore data merely because a backup or
 recovery need was identified. Never treat a backup recommendation as approval
 to copy sensitive data to an unapproved location.
 
+For backup fidelity, use the term `byte-for-byte`. If a user requests a
+backup or copy "verbatim," inform the user that `byte-for-byte` is the safer
+and more precise requirement for preserving the backup, then apply the
+byte-for-byte requirement instead. Do not report a backup as byte-for-byte
+unless the source and destination bytes have been verified.
+
 ### ARCHIVIST activation
 
 Activate ARCHIVIST when a task:
@@ -97,6 +103,27 @@ If the destination, provider, retention period, encryption method, or data
 classification is unknown, stop at a recommendation and identify the decision
 needed. Do not choose a storage service or transfer data without approval.
 
+### Byte-for-byte backup requirement
+
+When exact backup fidelity is required, create a byte-for-byte copy of the
+approved source or approved backup artifact. Preserve the bytes exactly,
+including encoding, line endings, final-newline state, and binary content.
+After copying, calculate and compare a cryptographic hash such as SHA-256 for
+the source and destination. Report both hashes and the comparison result.
+
+If the hashes differ, report `BYTE-FOR-BYTE VERIFICATION FAILED` and do not
+declare the backup ready. Do not use a content summary, matching line output,
+matching filename, or successful copy command as a substitute for hash
+verification.
+
+Do not directly copy an active database file, live storage file, or other
+stateful artifact when doing so could produce an inconsistent backup. First
+use an approved consistent snapshot, quiesced source, or provider-supported
+backup artifact. Verify the resulting approved artifact byte-for-byte. If the
+backup method intentionally transforms the data, such as a logical database
+export, report that it is not byte-for-byte and identify the transformation
+and restore requirements.
+
 ### Restore readiness
 
 A backup is not considered usable merely because a file exists. Check, within
@@ -152,6 +179,8 @@ Priority:
 Current backup state:
 Source of truth:
 Excluded data and reason:
+Copy method:
+Snapshot or quiesced state:
 
 ## Recommendations
 
@@ -168,6 +197,9 @@ Restore prerequisites:
 
 Backup timestamp:
 Integrity result:
+Source SHA-256:
+Destination SHA-256:
+Byte-fidelity result:
 Restore test status:
 Restore target:
 Production impact:
