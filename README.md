@@ -39,7 +39,8 @@ instructions are split into these linked Markdown documents:
   `agents/archivist.md`, and `agents/token.md`
 - TEST MODE: mandatory cross-cutting control mode; it is not an agent or a
   separate pipeline participant.
-- Workflow: `workflow/development.md` and optional `workflow/phases.md`
+- Workflow: `workflow/development.md`, `workflow/project-initialization.md`,
+  and optional `workflow/phases.md`
 - Git: `git.md`
 - Standards: `standards/input-validation.md`,
   `standards/api-integration.md`, `standards/frontend.md`, and
@@ -86,6 +87,21 @@ are escalated to the user rather than silently worked around.
 If the PLANNER cannot determine an important fact from the codebase, it must
 record that fact as an unknown and stop for user guidance. This avoids invented
 paths, APIs, functions, or requirements.
+
+## Project Initialization
+
+At the start of a project, PLANNER inspects the operating system, manifests,
+lockfiles, runtime selectors, build scripts, framework markers, database
+configuration, deployment files, and environment templates. The existing
+context determines the technology stack; the guide does not add React, Vite,
+Next.js, Tailwind CSS, PostgreSQL, or another framework merely because it is
+available or familiar.
+
+If a required program or dependency is missing, the initialization workflow
+allows only the approved requirement to be installed from a verified source.
+Existing package managers and lockfiles are preserved, unnecessary global
+installations are avoided, versions are verified, and administrator access or
+other blocked actions are reported for the user to complete.
 
 ## Roles
 

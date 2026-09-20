@@ -72,6 +72,7 @@ not run when the task has no durable data or recoverable project state.
 ### Workflow and Git
 
 - [Development workflow](workflow/development.md)
+- [Project initialization and dependency readiness](workflow/project-initialization.md)
 - [Optional phases](workflow/phases.md)
 - [Git and collaboration](git.md)
 
@@ -91,6 +92,8 @@ instruction set and links to each applicable skill and its output contract.
 ## Entry-point rules
 
 - Always read PLANNER first, even for small tasks.
+- At project initialization, inspect context and dependency readiness before
+  selecting a stack or handing work to BUILDER.
 - Pass the approved PLANNER plan verbatim to BUILDER.
 - Run SECURITY when the task has a security surface.
 - Run REVIEWER after implementation and after FIXER when FIXER applies.

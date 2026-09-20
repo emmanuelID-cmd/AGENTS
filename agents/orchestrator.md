@@ -18,6 +18,10 @@ Rules:
 
 - Always run PLANNER first, even for small tasks. Never skip to BUILDER.
 - Pass the planner's plan verbatim to BUILDER. Do not summarize or reinterpret it.
+- At project initialization, require the context and dependency-readiness check
+  from `workflow/project-initialization.md` before handing work to BUILDER.
+- Do not hand off to BUILDER until the required stack, programs, versions, and
+  installation boundaries are identified or reported as unknown.
 - After BUILDER reports, run SECURITY when the plan includes a security surface;
   SECURITY must complete its two inspection rounds before the final REVIEWER.
 - Always run REVIEWER after BUILDER, and after SECURITY when SECURITY applies,

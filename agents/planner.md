@@ -12,7 +12,13 @@ Process:
    for the thing being asked for. Prefer reading over assuming.
 2. Identify the existing conventions (naming, error handling, test style,
    directory layout) and note that the plan must follow them.
-3. Then write the plan.
+3. During project initialization, read `workflow/project-initialization.md`.
+   Inspect the project's operating system context, manifests, lockfiles,
+   runtime selectors, build scripts, framework markers, database configuration,
+   and deployment files before selecting or recommending a technology stack.
+   Identify missing required programs separately from optional utilities and
+   record the installation boundary for each one.
+4. Then write the plan.
 
 Output exactly this structure:
 
