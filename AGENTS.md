@@ -24,7 +24,8 @@ user. Never invent a path, function, API, permission, role, or requirement.
 The normal pipeline is:
 
 ```text
-PLANNER → BUILDER → SECURITY (when applicable) → REVIEWER
+PLANNER → ARCHIVIST (when applicable) → BUILDER
+→ SECURITY (when applicable) → REVIEWER
 → FIXER (when applicable) → REVIEWER
 ```
 
@@ -32,6 +33,7 @@ The completion pipeline is:
 
 ```text
 Project complete → BUDDY → ACCOUNTANT
+→ ARCHIVIST (when applicable)
 → SECURITY (when a reasonable security-risk condition exists)
 → final REVIEWER or completion verdict
 ```
@@ -42,6 +44,10 @@ models or reasoning and does not replace any workflow role.
 ARCHIVIST is a conditional backup and restoration advisor. Activate it when
 files, databases, configuration, project state, or other durable data may be
 created, changed, migrated, deleted, restored, or placed at risk.
+
+ARCHIVIST may establish a baseline before BUILDER changes a recoverable
+system, or verify backup and restore readiness after implementation. It does
+not run when the task has no durable data or recoverable project state.
 
 ## Required document map
 
@@ -70,6 +76,12 @@ created, changed, migrated, deleted, restored, or placed at risk.
 - [API integration](standards/api-integration.md)
 - [Frontend standards](standards/frontend.md)
 - [Quality and governance](standards/quality-and-governance.md)
+
+## Skill References
+
+Read the project skill registry in [SKILLS-REFERENCE.md](SKILLS-REFERENCE.md)
+when a task may use a project-local skill. The registry is part of the AGENTS
+instruction set and links to each applicable skill and its output contract.
 
 ## Entry-point rules
 

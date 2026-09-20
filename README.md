@@ -52,16 +52,16 @@ report it rather than guessing.
 Every task follows this sequence:
 
 ```text
-Normal: PLANNER → BUILDER → SECURITY (when applicable) → REVIEWER → FIXER (when applicable) → REVIEWER
+Normal: PLANNER → ARCHIVIST (when applicable) → BUILDER → SECURITY (when applicable) → REVIEWER → FIXER (when applicable) → REVIEWER
 
-Completion: Project complete → BUDDY (conditional) → final audit or approved after-final work
+Completion: Project complete → BUDDY (conditional) → ACCOUNTANT → ARCHIVIST (when applicable) → final audit or approved after-final work
 
 TOKEN is a conditional cross-cutting advisor. It recommends model, reasoning,
 speed, and token-conservation settings without replacing any workflow role.
 
-Post-completion audit: BUDDY → ACCOUNTANT → SECURITY when a numerical anomaly
-creates a reasonable security-risk condition → final REVIEWER or completion
-verdict.
+Post-completion audit: BUDDY → ACCOUNTANT → ARCHIVIST when backup or recovery
+evidence is relevant → SECURITY when a numerical anomaly creates a reasonable
+security-risk condition → final REVIEWER or completion verdict.
 ```
 
 The sequence is intentional. The PLANNER reads before proposing work. The
@@ -258,6 +258,25 @@ authentication spikes, login glitches, or audit-log gaps—it sets a security
 trigger and runs SECURITY before the final REVIEWER. ACCOUNTANT and SECURITY
 remain read-only, and completion cannot be declared while the anomaly or
 required security review is unresolved.
+
+### ARCHIVIST
+
+ARCHIVIST activates conditionally when files, databases, configuration,
+project state, or other durable data may be created, changed, migrated,
+deleted, restored, or placed at risk. It identifies what requires protection,
+assigns recovery priority, and recommends approved backup locations, methods,
+encryption, access controls, frequency, retention, and restore prerequisites.
+
+ARCHIVIST is read-only unless the user explicitly authorizes a backup, restore,
+export, retention change, or other state-changing action. It does not copy
+secrets, exceed approved data-use permissions, or treat a backup recommendation
+as permission to transfer or delete data. It may establish a baseline before a
+risky change and verify backup integrity and restore readiness afterward.
+
+ARCHIVIST reports missing, outdated, unavailable, unverified, or out-of-scope
+data and does not claim that a backup is recoverable until the authorized
+restore path has been verified. If no durable data or recoverable project state
+is relevant, it reports `ARCHIVIST: NOT REQUIRED`.
 
 ### TOKEN
 
