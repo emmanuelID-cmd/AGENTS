@@ -39,6 +39,10 @@ Project complete → BUDDY → ACCOUNTANT
 TOKEN is a conditional cross-cutting advisor. It does not silently change
 models or reasoning and does not replace any workflow role.
 
+ARCHIVIST is a conditional backup and restoration advisor. Activate it when
+files, databases, configuration, project state, or other durable data may be
+created, changed, migrated, deleted, restored, or placed at risk.
+
 ## Required document map
 
 ### Roles
@@ -51,6 +55,7 @@ models or reasoning and does not replace any workflow role.
 - [SECURITY](agents/security.md)
 - [BUDDY](agents/buddy.md)
 - [ACCOUNTANT](agents/accountant.md)
+- [ARCHIVIST](agents/archivist.md)
 - [TOKEN](agents/token.md)
 
 ### Workflow and Git
@@ -76,6 +81,10 @@ models or reasoning and does not replace any workflow role.
   conditional hand-off.
 - Run ACCOUNTANT after BUDDY and run post-ACCOUNTANT SECURITY when its
   numerical findings create a reasonable security-risk condition.
+- Run ARCHIVIST when backup, restoration, retention, recovery priority, or
+  durable-data protection is relevant. ARCHIVIST may run before a risky
+  change to establish a baseline and after the change to verify recovery
+  readiness.
 - Use the optional phase document only when PLANNER defines a Phase or
   Sub-Phase.
 - Ask explicitly before staging, committing, pushing, merging, or creating a

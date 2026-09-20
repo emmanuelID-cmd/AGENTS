@@ -35,8 +35,8 @@ instructions are split into these linked Markdown documents:
 
 - Roles: `agents/orchestrator.md`, `agents/planner.md`,
   `agents/builder.md`, `agents/reviewer.md`, `agents/fixer.md`,
-  `agents/security.md`, `agents/buddy.md`, `agents/accountant.md`, and
-  `agents/token.md`
+  `agents/security.md`, `agents/buddy.md`, `agents/accountant.md`,
+  `agents/archivist.md`, and `agents/token.md`
 - Workflow: `workflow/development.md` and optional `workflow/phases.md`
 - Git: `git.md`
 - Standards: `standards/input-validation.md`,
