@@ -27,3 +27,24 @@ as a secondary check, but it must not replace the file-and-line report.
 - [error-message-finder skill](skills/error-message-finder/SKILL.md) — use for
   accessible validation summaries and field-level feedback on submitted forms
   with missing or invalid required input.
+
+## Adding requested skills
+
+When a skill is approved for this project, keep the project copy in
+`C:\Users\Github\AGENTS\skills\<skill-name>\SKILL.md` using the skill's
+original lowercase name. Immediately synchronize that approved project copy
+one way into `C:\Users\dejes\.codex\skills\<skill-name>\SKILL.md` as a
+byte-for-byte copy and verify matching SHA-256 hashes.
+
+The synchronization direction is always:
+
+```text
+C:\Users\Github\AGENTS\skills → C:\Users\dejes\.codex\skills
+```
+
+Do not automatically copy Codex-only skills back into the AGENTS project. If
+a skill exists in Codex but not in AGENTS and is explicitly requested for the
+project, follow this registry before adding it. Add one registry entry using
+the original lowercase name and path. Do not invent aliases, alternate
+labels, duplicate names, or summarized versions. Verify both copies before
+reporting the skill complete.
