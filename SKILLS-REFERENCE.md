@@ -15,3 +15,9 @@ returned.
 
 The primary line-reference report is mandatory. A whitespace scan may remain
 as a secondary check, but it must not replace the file-and-line report.
+
+## universal-help-textbox
+
+- [universal-help-textbox skill](skills/universal-help-textbox/SKILL.md) — use
+  for concise, accessible helper guidance on text-entry fields when accepted
+  formats, limits, or requirements are not already clear.
