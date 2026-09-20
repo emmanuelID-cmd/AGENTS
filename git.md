@@ -43,6 +43,37 @@ chore(ci): update workflow to run tests on pull requests
 Add coverage for automated tests on PR branches and ensure the pipeline runs before merge. This helps catch regressions earlier.
 ```
 
+## Isolated Multi-Task Commit Grouping
+
+Before staging or committing, inspect the complete change set from the last
+commit, including unstaged and already-staged changes. Report every changed
+file and its changed line ranges, then determine whether the changes belong to
+one cohesive task or to multiple independent tasks or actions.
+
+- Keep one cohesive task in one commit when the files support the same approved
+  outcome and cannot be meaningfully reviewed or reverted separately.
+- Recommend separate commits for independent tasks, unrelated fixes, separate
+  roles or policies, or changes with different validation or approval
+  boundaries.
+- Do not stage unrelated or pre-existing work merely to complete the current
+  task. Identify it separately and preserve it unless the user authorizes its
+  inclusion.
+- For every recommended commit, list the exact files, changed line ranges,
+  purpose, validation, and proposed Conventional Commit subject and body.
+- If no changes exist since `HEAD`, report that no commit is recommended. If
+  the working tree contains changes but their baseline cannot be separated,
+  report that limitation before staging anything.
+
+The commit-grouping report must distinguish:
+
+1. Changes already present in `HEAD`.
+2. Unstaged changes in the working tree.
+3. Staged changes awaiting commit.
+4. Independent commit groups recommended from the current change set.
+
+Do not claim that a commit group is isolated without checking the complete
+diff and repository status first.
+
 ## Commit Collaboration
 
 When collaborating, use a specific commit subject followed by a commit body
