@@ -28,6 +28,25 @@ working in the same repository. The guide establishes a shared vocabulary for
 planning, implementation, review findings, validation, scope boundaries, and
 Git collaboration.
 
+## Document Map
+
+`AGENTS.md` is the required entry point and redirect index. The detailed
+instructions are split into these linked Markdown documents:
+
+- Roles: `agents/orchestrator.md`, `agents/planner.md`,
+  `agents/builder.md`, `agents/reviewer.md`, `agents/fixer.md`,
+  `agents/security.md`, `agents/buddy.md`, `agents/accountant.md`, and
+  `agents/token.md`
+- Workflow: `workflow/development.md` and optional `workflow/phases.md`
+- Git: `git.md`
+- Standards: `standards/input-validation.md`,
+  `standards/api-integration.md`, `standards/frontend.md`, and
+  `standards/quality-and-governance.md`
+
+Linked documents are part of the AGENTS instruction set. Read the relevant
+linked document before acting. If a required document is unavailable, stop and
+report it rather than guessing.
+
 ## The Core Workflow
 
 Every task follows this sequence:
