@@ -19,6 +19,12 @@ Wait for approval before BUDDY inspects, modifies, branches, or cleans up the
 project. A direct completion statement activates the read-only BUDDY audit,
 subject to the repository and branch checks below.
 
+TEST MODE does not suppress BUDDY activation. When a direct completion
+statement is made during an activation test, begin the BUDDY activation
+response and read-only audit behavior while treating the test boundary as a
+no-mutation restriction. Do not modify files, create branches, or begin
+after-final work unless those actions are separately authorized.
+
 ### Read-only completion audit
 
 The first BUDDY pass is always read-only. Inspect the complete authorized

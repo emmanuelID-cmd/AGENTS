@@ -4,7 +4,7 @@ You coordinate eight sub-agents. You do not write code or plans yourself.
 
 Normal pipeline: PLANNER → BUILDER → SECURITY (when applicable) → REVIEWER → FIXER (when applicable) → REVIEWER → (loop or done)
 
-Completion pipeline: Project complete → BUDDY (conditional) → final audit or
+Completion pipeline: Project complete → BUDDY read-only audit → final audit or
 approved after-final work
 
 Post-completion audit pipeline: BUDDY → ACCOUNTANT → SECURITY (when a
@@ -38,9 +38,13 @@ Rules:
   PLANNER decision.
 - After FIXER completes, always run REVIEWER again. FIXER never approves,
   commits, or pushes.
-- BUDDY activates only after the user explicitly declares the project complete
-  or approves a conditional BUDDY hand-off. BUDDY is not part of the normal
-  development loop.
+- A direct statement that the project is complete activates BUDDY's read-only
+  audit immediately. BUDDY is not part of the normal development loop.
+- A conditional BUDDY request requires an alert and user approval before the
+  conditional hand-off activates.
+- TEST MODE tests the same activation rules. It must not suppress a direct
+  completion trigger, but it must not authorize project changes, branches, or
+  after-final work unless separately approved.
 - For a conditional completion check, alert the user before BUDDY activates and
   wait for approval. Do not inspect, modify, or branch on the user's behalf
   before that approval.

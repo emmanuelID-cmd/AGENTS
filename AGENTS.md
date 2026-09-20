@@ -41,6 +41,10 @@ Project complete → BUDDY → ACCOUNTANT
 TOKEN is a conditional cross-cutting advisor. It does not silently change
 models or reasoning and does not replace any workflow role.
 
+TEST MODE is a mandatory cross-cutting control mode, not an agent. It tests
+whether the documented AGENTS activate and follow their rules without
+authorizing project mutations by default.
+
 ARCHIVIST is a conditional backup and restoration advisor. Activate it when
 files, databases, configuration, project state, or other durable data may be
 created, changed, migrated, deleted, restored, or placed at risk.
@@ -63,6 +67,7 @@ not run when the task has no durable data or recoverable project state.
 - [ACCOUNTANT](agents/accountant.md)
 - [ARCHIVIST](agents/archivist.md)
 - [TOKEN](agents/token.md)
+- TEST MODE (cross-cutting control mode; not an agent)
 
 ### Workflow and Git
 
@@ -102,6 +107,8 @@ instruction set and links to each applicable skill and its output contract.
 - Ask explicitly before staging, committing, pushing, merging, or creating a
   branch.
 - Complete a line scan for every changed file before approval.
+- TEST MODE must not suppress a direct role trigger. It may test activation and
+  instruction-following, but it does not authorize mutations by default.
 
 The linked documents retain the detailed role, workflow, Git, phase,
 validation, API, frontend, quality, security, completion, accounting, and

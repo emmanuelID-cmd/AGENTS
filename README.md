@@ -37,6 +37,8 @@ instructions are split into these linked Markdown documents:
   `agents/builder.md`, `agents/reviewer.md`, `agents/fixer.md`,
   `agents/security.md`, `agents/buddy.md`, `agents/accountant.md`,
   `agents/archivist.md`, and `agents/token.md`
+- TEST MODE: mandatory cross-cutting control mode; it is not an agent or a
+  separate pipeline participant.
 - Workflow: `workflow/development.md` and optional `workflow/phases.md`
 - Git: `git.md`
 - Standards: `standards/input-validation.md`,
@@ -54,10 +56,17 @@ Every task follows this sequence:
 ```text
 Normal: PLANNER → ARCHIVIST (when applicable) → BUILDER → SECURITY (when applicable) → REVIEWER → FIXER (when applicable) → REVIEWER
 
-Completion: Project complete → BUDDY (conditional) → ACCOUNTANT → ARCHIVIST (when applicable) → final audit or approved after-final work
+Completion: Project complete → BUDDY read-only audit → ACCOUNTANT → ARCHIVIST (when applicable) → final audit or approved after-final work
 
 TOKEN is a conditional cross-cutting advisor. It recommends model, reasoning,
 speed, and token-conservation settings without replacing any workflow role.
+
+TEST MODE is a mandatory cross-cutting control mode for testing whether the
+documented AGENTS activate and follow their instructions. It does not suppress
+direct role triggers, including BUDDY activation after a direct project
+completion statement. TEST MODE is no-mutation by default and does not authorize
+file edits, branches, commits, pushes, external access, or after-final work
+unless those actions are separately approved.
 
 Post-completion audit: BUDDY → ACCOUNTANT → ARCHIVIST when backup or recovery
 evidence is relevant → SECURITY when a numerical anomaly creates a reasonable
@@ -79,6 +88,16 @@ record that fact as an unknown and stop for user guidance. This avoids invented
 paths, APIs, functions, or requirements.
 
 ## Roles
+
+### TEST MODE
+
+TEST MODE is not an agent. It is a control mode that receives a test command
+and reports the detected trigger, activated role, required behavior, approval
+gates, blocked actions, and final `TEST=PASS` or `TEST=FAIL` result.
+
+If the expected role does not activate, an approval gate is skipped, or an
+unauthorized action occurs, report `TEST=FAIL` and identify the exact rule that
+was missed.
 
 ### PLANNER
 
