@@ -21,3 +21,9 @@ as a secondary check, but it must not replace the file-and-line report.
 - [universal-help-textbox skill](skills/universal-help-textbox/SKILL.md) — use
   for concise, accessible helper guidance on text-entry fields when accepted
   formats, limits, or requirements are not already clear.
+
+## error-message-finder
+
+- [error-message-finder skill](skills/error-message-finder/SKILL.md) — use for
+  accessible validation summaries and field-level feedback on submitted forms
+  with missing or invalid required input.
