@@ -45,6 +45,12 @@ TEST MODE is a mandatory cross-cutting control mode, not an agent. It tests
 whether the documented AGENTS activate and follow their rules without
 authorizing project mutations by default.
 
+Agent self-identification is an internal hand-off check. The activated agent
+must identify itself internally before acting, but must not display an
+activation template or status report during normal work. If the expected agent
+fails to self-identify, stop the hand-off and report only the missing
+activation and required next step.
+
 ARCHIVIST is a conditional backup and restoration advisor. Activate it when
 files, databases, configuration, project state, or other durable data may be
 created, changed, migrated, deleted, restored, or placed at risk.
@@ -112,6 +118,9 @@ instruction set and links to each applicable skill and its output contract.
 - Complete a line scan for every changed file before approval.
 - TEST MODE must not suppress a direct role trigger. It may test activation and
   instruction-following, but it does not authorize mutations by default.
+- If an expected agent fails to self-identify internally, report `TEST=FAIL`
+  only when TEST MODE is active. Otherwise report `HAND-OFF FAILURE` and
+  request the reason and the user's identification of the missing activation.
 
 The linked documents retain the detailed role, workflow, Git, phase,
 validation, API, frontend, quality, security, completion, accounting, and

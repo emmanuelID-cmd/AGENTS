@@ -69,6 +69,14 @@ completion statement. TEST MODE is no-mutation by default and does not authorize
 file edits, branches, commits, pushes, external access, or after-final work
 unless those actions are separately approved.
 
+Agent self-identification is handled internally during each hand-off to reduce
+token use and keep normal responses focused. Do not display an activation
+template, activation status, or internal hand-off acknowledgment. If the
+expected agent does not self-identify internally, stop the hand-off and report
+only the missing activation and required next step. Return `TEST=FAIL` only
+when TEST MODE is active; otherwise return `HAND-OFF FAILURE` and request the
+reason and the user's identification of the missing activation.
+
 Post-completion audit: BUDDY → ACCOUNTANT → ARCHIVIST when backup or recovery
 evidence is relevant → SECURITY when a numerical anomaly creates a reasonable
 security-risk condition → final REVIEWER or completion verdict.

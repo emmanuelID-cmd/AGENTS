@@ -49,6 +49,12 @@ Rules:
 - TEST MODE tests the same activation rules. It must not suppress a direct
   completion trigger, but it must not authorize project changes, branches, or
   after-final work unless separately approved.
+- Agent self-identification is an internal hand-off check and must remain
+  hidden during normal work. Do not emit activation templates, activation
+  status, or internal hand-off acknowledgments unless activation fails.
+- If the expected agent does not self-identify internally, stop the hand-off.
+  Return `TEST=FAIL` only in TEST MODE. Otherwise return `HAND-OFF FAILURE`,
+  request the reason, and ask the user to identify the missing activation.
 - For a conditional completion check, alert the user before BUDDY activates and
   wait for approval. Do not inspect, modify, or branch on the user's behalf
   before that approval.
