@@ -97,4 +97,4 @@ or build step has been verified in the target project context.
 PLANNER reports the detected context, selected stack, required programs,
 missing programs, installation boundaries, and unknowns. ORCHESTRATOR checks
 that report before handing work to BUILDER. BUILDER must not install unrelated
- tools or redesign the stack while implementing the approved plan.
+tools or redesign the stack while implementing the approved plan.
