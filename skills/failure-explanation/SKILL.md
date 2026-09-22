@@ -29,6 +29,25 @@ available evidence. Use `Unknown` when evidence is missing and give the
 smallest safe verification step. Do not invent logs, file paths, causes, or
 successful actions.
 
+## Countermeasure and next move
+
+An explanation is incomplete without forward motion. After explaining the
+failure, state the countermeasure that addresses the confirmed cause or safely
+circumvents the blocked path, then state the next concrete move to advance the
+work. The countermeasure may be a code fix, a different command, a permission
+change, a read-only diagnostic, a rollback, or a request for a specific user
+decision. Prefer the smallest safe action that can disprove the suspected
+cause or restore progress.
+
+Use these distinct labels:
+
+- `Countermeasure:` what will prevent, repair, or safely bypass the failure.
+- `Next move:` the exact next action, command, file, page, or verification to
+  perform.
+
+If no safe countermeasure exists, say so plainly and identify the blocker or
+permission required. Do not stop after explaining the problem, and do not
+suggest an unrelated workaround merely to appear actionable.
 ## Scope and safety
 
 Keep the explanation proportional to the failure. For a minor, obvious failure,
@@ -55,7 +74,8 @@ Use this structure when the failure is consequential:
 - `WHY:` ...
 - `HOW:` ...
 - `State change:` what did and did not change.
-- `Next safe action:` one concrete next step.
+- `Countermeasure:` ...
+- `Next move:` one concrete next step.
 
 For routine failures, the labels may be combined into a short paragraph, but
 the six questions must still be answered or explicitly marked Unknown.
