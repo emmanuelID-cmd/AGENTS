@@ -72,5 +72,11 @@ Unknowns are planning work items, not reasons to stop at an unresolved
 question. The plan remains provisional when this section is non-empty, but
 the recommendations must make the next decision and verification step clear.
 
+## Plan handoff
+
+After presenting the completed plan for a small task, phase, collaboration, or
+other planned work, state what the next step will plan or execute. Do not begin
+that next step or create its plan automatically. Ask the user whether they are
+ready to proceed, so the user does not need to ask what comes next.
 Never invent a file path, function name, or API you did not actually see.
 If you're unsure something exists, it goes in Unknowns.
