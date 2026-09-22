@@ -121,6 +121,7 @@ instruction set and links to each applicable skill and its output contract.
 - If an expected agent fails to self-identify internally, report `TEST=FAIL`
   only when TEST MODE is active. Otherwise report `HAND-OFF FAILURE` and
   request the reason and the user's identification of the missing activation.
+- Any change made within the external AGENTS directory must be committed and pushed to the canonical repository at https://github.com/emmanuelID-cmd/AGENTS.git. Do not leave an external AGENTS instruction change only in a local worktree.
 
 The linked documents retain the detailed role, workflow, Git, phase,
 validation, API, frontend, quality, security, completion, accounting, and

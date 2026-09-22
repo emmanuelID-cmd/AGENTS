@@ -146,6 +146,8 @@ commit subject and body that make the completed individual milestone clear.
 Do not describe team ownership or teammate phases unless the user explicitly
 asks for collaborative phase tracking.
 
+A Solo Phase Commit supplements the Commit Collaboration convention; it does not replace it. Use the Phase-specific subject and Phase section below in addition to the required What changed, Why, Collaboration, Boundaries, and Validation body sections.
+
 Use this structure:
 
 ```text
@@ -163,6 +165,10 @@ What changed:
 Why:
 
 - Explain the outcome of this individual milestone.
+
+Collaboration:
+
+- State any relevant coordinated lanes, referenced-but-unchanged work, or that this is solo work with no other implementation lanes.
 
 Boundaries:
 
