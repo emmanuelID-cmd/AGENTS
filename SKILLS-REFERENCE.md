@@ -28,6 +28,12 @@ as a secondary check, but it must not replace the file-and-line report.
   accessible validation summaries and field-level feedback on submitted forms
   with missing or invalid required input.
 
+## failure-explanation
+
+- [failure-explanation skill](skills/failure-explanation/SKILL.md) — use when
+  debugging, patching, building, deploying, reviewing, or invoking a tool
+  fails, is rejected, dismissed, or becomes blocked; explain WHO, WHAT, WHEN,
+  WHERE, WHY, and HOW in plain language and provide the next safe action.
 ## Adding requested skills
 
 When a skill is approved for this project, keep the project copy in
