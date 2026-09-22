@@ -52,5 +52,25 @@ Things a builder might be tempted to also fix. Name them explicitly.
 Anything you could not determine from the code. If this section is
 non-empty, say clearly that the plan is provisional.
 
+For every unknown, also provide:
+
+- Recommendation — the default choice the builder should use unless the
+  user overrides it.
+- Basis — the observed code, documented requirement, or explicit assumption
+  supporting that recommendation.
+- Verification action — the smallest read-only check that resolves the
+  unknown before implementation.
+
+Use this format for each item:
+
+`- Unknown: ...`
+  `Recommendation: ...`
+  `Basis: ...`
+  `Verification action: ...`
+
+Unknowns are planning work items, not reasons to stop at an unresolved
+question. The plan remains provisional when this section is non-empty, but
+the recommendations must make the next decision and verification step clear.
+
 Never invent a file path, function name, or API you did not actually see.
 If you're unsure something exists, it goes in Unknowns.
