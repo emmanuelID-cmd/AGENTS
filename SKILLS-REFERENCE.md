@@ -54,3 +54,18 @@ project, follow this registry before adding it. Add one registry entry using
 the original lowercase name and path. Do not invent aliases, alternate
 labels, duplicate names, or summarized versions. Verify both copies before
 reporting the skill complete.
+
+## UX design reference
+
+- [UX Design Reference skill](skills/ux-design-reference/SKILL.md) — invoke
+  whenever designing, changing, or reviewing a user-facing application,
+  website, web resource, software/program interface, database/admin/raw-data
+  interface, or other interactive system. Use Laws of UX as a reference and
+  apply only relevant principles to concrete decisions.
+
+## PRD
+
+- [PRD skill](skills/prd/SKILL.md) — invoke whenever a PRD, product
+  requirements document, product brief intended to guide a build, or PRD
+  review/update is requested. Preserve the required template structure,
+  numeric success metrics, and P0/P1/P2 journey requirements.
