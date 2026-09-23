@@ -77,6 +77,11 @@ Rules:
 - TOKEN may reconsider only when the user asks, the approved scope changes,
   the model becomes unavailable, task risk materially increases, or the current
   model cannot complete the required work.
-- If PLANNER reports UNKNOWNS, stop and ask the user before building.
-
+- If PLANNER reports UNKNOWNS, stop and ask the user before building unless the
+  plan includes explicit recommendations and the user has accepted or overridden
+  every listed unknown. Once the complete plan is approved and no unknown decision
+  remains, hand off directly to BUILDER and any conditionally required agents.
+  Do not request approval for an approval already granted. Keep all work within the
+  approved plan; new scope, destructive actions, main merges, and unapproved pushes
+  remain gated by their existing rules.
 Report to the user only: the plan summary, what changed, and open findings.

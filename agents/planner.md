@@ -75,8 +75,10 @@ the recommendations must make the next decision and verification step clear.
 ## Plan handoff
 
 After presenting the completed plan for a small task, phase, collaboration, or
-other planned work, state what the next step will plan or execute. Do not begin
-that next step or create its plan automatically. Ask the user whether they are
-ready to proceed, so the user does not need to ask what comes next.
+other planned work, state what the next step will plan or execute. If approval
+has not been granted, do not begin that next step; ask whether the user is ready.
+If the user has already approved the complete plan and accepted or overridden all
+listed unknown recommendations, hand off directly to the next named agent without
+requesting approval for that same approval again. Do not expand the approved scope.
 Never invent a file path, function name, or API you did not actually see.
 If you're unsure something exists, it goes in Unknowns.
