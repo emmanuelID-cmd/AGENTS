@@ -43,6 +43,19 @@ chore(ci): update workflow to run tests on pull requests
 Add coverage for automated tests on PR branches and ensure the pipeline runs before merge. This helps catch regressions earlier.
 ```
 
+## Commit-message serialization check
+
+Before pushing a commit with a multiline body:
+
+- Construct line breaks using a message file (`git commit -F`), a PowerShell
+  here-string, or PowerShell backtick-newlines; never use literal `\n` escape
+  sequences as line breaks.
+- Run `git show -s --format=%B HEAD` and confirm paragraphs and bullets render
+  on separate lines with no unintended literal `\n` or `\t` text.
+- If validation fails before push, amend the commit. If it fails after push,
+  rewrite only the affected commits and use `--force-with-lease` after
+  approval.
+
 ## Isolated Multi-Task Commit Grouping
 
 Before staging or committing, inspect the complete change set from the last
