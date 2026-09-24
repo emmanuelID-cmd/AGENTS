@@ -58,6 +58,12 @@ one cohesive task or to multiple independent tasks or actions.
 - Do not stage unrelated or pre-existing work merely to complete the current
   task. Identify it separately and preserve it unless the user authorizes its
   inclusion.
+- When a cohesive task reveals an error-control correction, commit that
+  correction separately from the task commit. This exception covers focused
+  fixes to validation, error messages, accessibility feedback, and related
+  error-handling behavior. Keep the task commit limited to the requested
+  outcome; keep the error commit limited to the corrective safeguard and its
+  validation. Normal single-entry commits remain unchanged.
 - For every recommended commit, list the exact files, changed line ranges,
   purpose, validation, and proposed Conventional Commit subject and body.
 - If no changes exist since `HEAD`, report that no commit is recommended. If
