@@ -14,6 +14,24 @@
 
 # Commit Standards
 
+## PR-first workflow
+
+For shared, deployed, security-sensitive, dependency, data, or user-facing
+application changes, use a pull request before merging into `main`.
+
+- Push the completed feature branch, then check whether an open pull request
+  already covers the same branch and target.
+- When none exists, create a pull request into `main` so collaborators can
+  inspect the exact diff, validation results, review discussion, and merge
+  status before production changes.
+- Merge only after required checks pass and the configured reviewer or owner
+  approval is present.
+- Direct pushes to `main` are limited to an explicitly authorized emergency
+  rollback or a narrow documentation-only correction; record the exception in
+  the commit body.
+- A pull request is a review and automation boundary, not proof that a change
+  is secure or correct. Keep the existing validation and SECURITY workflows.
+
 Use Conventional Commits whenever practical.
 
 Commit messages should follow this structure:
